@@ -114,7 +114,7 @@ def get_instance_external_ip(instance_name, zone="asia-southeast1-a"):
 
 
 def send_email(user_email, instance_url):
-    sender_email = "qasimnaveed2015@gmail.com"
+    sender_email = ""
     sender_password = ""  # Use the App Password here
 
     msg = MIMEMultipart()
