@@ -1,0 +1,590 @@
+<html><head><base href="/" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Custom Model Training | Virtual Try-On</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+:root {
+    --primary-color: #FFECE5;
+    --text-color: #4A4A4A;
+    --accent-color: #FF69B4;
+}
+
+body {
+    min-height: 100vh;
+    background-color: var(--primary-color);
+    background-image: linear-gradient(135deg, #FFECE5 0%, #FFE2D9 100%);
+    
+}
+
+.training-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(255, 105, 180, 0.15);
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem;
+    margin-bottom: 6rem;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.logo {
+    width: 150px;
+    height: auto;
+}
+
+.training-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.training-header h1 {
+    color: var(--text-color);
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.training-header p {
+    color: var(--text-color);
+    font-size: 1.1rem;
+    opacity: 0.8;
+}
+
+.upload-section {
+    background: #fff;
+    border-radius: 15px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border: 2px dashed var(--accent-color);
+}
+
+.upload-section h3 {
+    color: var(--text-color);
+    margin-bottom: 1rem;
+}
+
+.dropzone {
+    padding: 2rem;
+    text-align: center;
+    background: #fafafa;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dropzone:hover {
+    background: #f0f0f0;
+}
+
+.option-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    margin-top: 2rem ;
+    margin-bottom: 2rem;
+}
+
+.option-card h4 {
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+}
+
+.option-card label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.option-card select, .option-card input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+.learning-rate-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.learning-rate-input {
+    width: 120px !important;
+}
+
+.learning-rate-slider {
+    flex-grow: 1;
+}
+
+.start-training-btn {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    margin-top: 1rem;
+}
+
+.start-training-btn:hover {
+    background-color: #ff4da6;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+}
+
+
+
+.files-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2rem;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.files-table th, .files-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.files-table th {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.files-table tbody tr:hover {
+    background-color: #f8f8f8;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+}
+.login-btn {
+    padding: 0.8rem 2rem;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.login-btn:hover {
+    transform: scale(1.05);
+    background-color: #ff4da6;
+    box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+}
+.nav-links a:hover {
+    color: var(--accent-color);
+    transform: translateY(-2px);
+}
+.nav-container {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+}
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 4rem;
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 20px rgba(255, 105, 180, 0.1);
+    margin-bottom: 6rem;
+}
+
+@media (max-width: 768px) {
+    .training-container {
+        padding: 1.5rem;
+    }
+    
+    .training-header h1 {
+        font-size: 2rem;
+    }
+    
+    .learning-rate-container {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .learning-rate-input {
+        width: 100% !important;
+    }
+
+    .nav-container {
+        gap: 1rem;
+    }
+
+    .nav-links {
+        gap: 1rem;
+    }
+}
+
+    .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            width: 80%;
+            max-width: 400px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .success {
+            color: green;
+        }
+
+        .error {
+            color: red;
+        }
+
+        /* Loading modal styles */
+        .loading-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loading-modal-content {
+            text-align: center;
+            color: white;
+        }
+
+        .spinner {
+            border: 6px solid rgba(255, 255, 255, 0.3);
+            border-top: 6px solid white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+</style>
+</head>
+<body>
+    <nav class="navbar">
+        <img class="logo" 
+             src="static/images/logotransparent.png" 
+             alt="ClothMe! logo featuring a pink circle with white hanger icon and stylized text"
+             width="150"
+             height="50">
+        <div class="nav-container">
+            <div class="nav-links">
+                <a href="{{ url_for('landingpage') }}">Home</a>
+                <a href="{{ url_for('try_on') }}">Try Out!</a>
+                <a href="#about">About Us</a>
+                <a href="#services">Our Services</a>
+                <a href="#demo">Demo</a>
+                <a href="#subscribe">Subscribe</a>
+            </div>
+            
+        </div>
+    </nav>
+    <div class="training-container">
+        <div class="logo-container">
+            <img class="logo" 
+                 src="static/images/logotransparent.png" 
+                 alt="ClothMe! logo featuring a pink circle with white hanger icon and stylized text"
+                 width="150"
+                 height="50">
+        </div>
+        
+        <div class="training-header">
+            <h1>Custom Model Training</h1>
+            <p>Train your virtual try-on model with your brand's unique style and clothing items</p>
+        </div>
+
+        <form id="trainingForm" action="{{ url_for('trainingv2') }}" method="post" enctype="multipart/form-data">
+            <div class="upload-section">
+                <h3>Upload Your Dataset</h3>
+                <div class="dropzone" id="dropzone">
+                    <p>Click to select files</p>
+                    <input type="file" id="fileInput" name="fileInput" accept=".jpg" multiple style="display: none">
+                </div>
+            </div>
+            <div style="display: flex; justify-content: center;">
+                <button id="submitFormBtn" name="submitFormBtn" class="start-training-btn">Upload Data</button>
+            </div>
+        </form>
+
+            <div class="option-card">
+                <h4>Training Parameters</h4>
+                <div class="input-group">
+                    <label for="epochs">Training Epochs</label>
+                    <input type="number" id="epochs" value="100" min="1" max="1000">
+                </div>
+                <div class="input-group">
+                    <label for="batchSize">Batch Size</label>
+                    <input type="number" id="batchSize" value="32" min="1" max="128">
+                </div>
+                <div class="input-group">
+                    <label for="learningRate">Learning Rate</label>
+                    <div class="learning-rate-container">
+                        <input type="number" 
+                               id="learningRateInput" 
+                               class="learning-rate-input"
+                               value="0.0001" 
+                               min="0.00001" 
+                               max="1" 
+                               step="0.00001">
+                        <input type="range" 
+                               id="learningRateSlider" 
+                               class="learning-rate-slider"
+                               min="0.00001" 
+                               max="1" 
+                               step="0.00001" 
+                               value="0.0001">
+                    </div>
+                </div>
+            </div>
+
+            <table class="files-table">
+                <thead>
+                    <tr>
+                        <th>File Name</th>
+                        <th>Image</th>
+                        <th>Select</th>
+                    </tr>
+                </thead>
+                <tbody id="filesTableBody">
+                    {% for file in files %}
+                    <tr>
+                        <td>{{ file }}</td>
+                        <td>
+                            <img class="cloth-image" style="width: 48px; height: 64px;" src="{{ url_for('uploaded_file', filename=file) }}" alt="{{ file }}">
+                        </td>
+                        <td>
+                            <input type="checkbox" name="selectedFiles" value="{{ file }}">
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div style="display: flex; justify-content: center;"><button type="submit" id="startTrainingBtn" class="start-training-btn">Start Training</button></div>
+
+            
+        
+    </div>
+    <div class="wave-decoration"></div>
+    <!-- Modal structure -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div id="modal" class="modal" style="display: flex;">
+                <div class="modal-content">
+                    <button class="close-btn" onclick="document.getElementById('modal').style.display='none'">&times;</button>
+                    {% for category, message in messages %}
+                        <p class="{{ category }}">{{ message }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Loading Modal -->
+    <div id="loadingModal" class="loading-modal">
+        <div class="loading-modal-content">
+            <div class="spinner"></div>
+            <p>Processing your upload, please wait...</p>
+        </div>
+    </div>
+    <script>
+        const dropzone = document.getElementById('dropzone');
+const fileInput = document.getElementById('fileInput');
+
+// Sync slider and input field
+const learningRateSlider = document.getElementById('learningRateSlider');
+const learningRateInput = document.getElementById('learningRateInput');
+const submitFormBtn = document.getElementById('submitFormBtn');
+learningRateSlider.addEventListener('input', (e) => {
+    learningRateInput.value = e.target.value;
+});
+learningRateInput.addEventListener('input', (e) => {
+    const value = parseFloat(e.target.value);
+    if (value >= 0.00001 && value <= 1) {
+        learningRateSlider.value = value;
+    }
+});
+
+// Display file count in dropzone
+function updateFileCount() {
+    const fileCount = fileInput.files.length;
+    dropzone.innerHTML = `<p>${fileCount} files selected</p>`;
+}
+
+// Dropzone click event
+dropzone.addEventListener('click', () => {
+    fileInput.click();
+});
+
+// Dropzone drag & drop events
+dropzone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dropzone.style.background = '#f0f0f0';
+});
+dropzone.addEventListener('dragleave', () => {
+    dropzone.style.background = '#fafafa';
+});
+
+
+submitFormBtn.addEventListener('click', () => {
+            loadingModal.style.display = 'flex';
+            debugger;
+        });
+
+
+        const startTrainingBtn = document.getElementById('startTrainingBtn');
+    const epochsInput = document.getElementById('epochs');
+    const batchSizeInput = document.getElementById('batchSize');
+
+    startTrainingBtn.addEventListener('click', () => {
+        loadingModal.style.display = 'flex';
+        // Get selected files
+        const selectedFiles = Array.from(document.querySelectorAll('input[name="selectedFiles"]:checked'))
+            .map(checkbox => checkbox.value);
+
+        // Validate file selection
+        if (selectedFiles.length === 0) {
+            alert('Please select at least one item for training.');
+            return;
+        }
+
+        // Get training parameters
+        const epochs = epochsInput.value;
+        const batchSize = batchSizeInput.value;
+        const learningRate = learningRateInput.value;
+
+        // Prepare data to send to the server
+        const data = {
+            selectedFiles: selectedFiles,
+            epochs: epochs,
+            batchSize: batchSize,
+            learningRate: learningRate,
+        };
+
+        // Send the data to the server using fetch
+        fetch('/sendtraining', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+        .then(response => response.json())
+        .then(result => {
+            loadingModal.style.display = 'none';
+            alert(result.message);
+        })
+        .catch(error => {
+            loadingModal.style.display = 'none';
+            console.error('Error:', error);
+            alert('An error occurred while starting the training.');
+        });
+    });
+
+// Modal Handling
+document.addEventListener('DOMContentLoaded', () => {
+    const errorModal = document.getElementById('errorModal');
+    const successModal = document.getElementById('successModal');
+    const closeErrorButton = document.querySelector('.close');
+    const closeSuccessButton = document.querySelector('.success-close');
+    const loadingModal = document.getElementById('loadingModal');
+    const errorMessage = document.getElementById('errorMessage');
+    const successMessage = document.getElementById('successMessage');
+
+
+        // Close modals on click
+        document.querySelector('.close').addEventListener('click', () => {
+            errorModal.style.display = 'none';
+        });
+        document.querySelector('.success-close').addEventListener('click', () => {
+            successModal.style.display = 'none';
+        });
+
+        // Submit form via AJAX
+        
+});
+const flashModal = document.getElementById('modal');
+        if (flashModal) {
+            setTimeout(() => {
+                flashModal.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

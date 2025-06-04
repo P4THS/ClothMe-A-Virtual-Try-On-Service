@@ -1,0 +1,8 @@
+test:
+    all files except imageparsev3.py imageparsev3test.py inference_pgn.py inference_pgntest.py
+
+cihp:
+    above mentioned files
+
+StableVITON:
+    stableviton files

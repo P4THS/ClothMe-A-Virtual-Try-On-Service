@@ -1,0 +1,233 @@
+<html><head><base href="/" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Virtual Try-On | Model Options</title>
+<style>
+
+a {
+  text-decoration: none !important;
+}
+.nav-container {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+:root {
+    --primary-color: #FFECE5;
+    --text-color: #4A4A4A;
+    --accent-color: #FF69B4;
+}
+
+body {
+    background-color: var(--primary-color);
+    background-image: linear-gradient(135deg, #FFECE5 0%, #FFE2D9 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 4rem;
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 20px rgba(255, 105, 180, 0.1);
+}
+
+.logo {
+    height: 50px;
+    width: auto;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+}
+
+.model-options {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    gap: 3rem;
+    position: relative;
+}
+
+.model-options::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, rgba(255, 236, 229, 0.8), transparent);
+    pointer-events: none;
+}
+
+.title {
+    font-size: 3.5rem;
+    color: var(--text-color);
+    text-align: center;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.buttons-container {
+    display: flex;
+    gap: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.model-btn {
+    padding: 1.5rem 4rem;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.train-btn {
+    background-color: var(--accent-color);
+    color: white;
+    box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+}
+
+.train-btn:hover {
+    background-color: #ff4da6;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(255, 105, 180, 0.4);
+}
+
+.try-btn {
+    background-color: white;
+    color: var(--accent-color);
+    border: 2px solid var(--accent-color);
+    box-shadow: 0 5px 15px rgba(255, 105, 180, 0.1);
+}
+
+.try-btn:hover {
+    background-color: var(--accent-color);
+    color: white;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(255, 105, 180, 0.4);
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+}
+.login-btn {
+    padding: 0.8rem 2rem;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.login-btn:hover {
+    transform: scale(1.05);
+    background-color: #ff4da6;
+    box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+}
+.nav-links a:hover {
+    color: var(--accent-color);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 1rem 2rem;
+    }
+    
+    .title {
+        font-size: 2.5rem;
+        padding: 0 1rem;
+    }
+    
+    .buttons-container {
+        flex-direction: column;
+        width: 90%;
+        max-width: 300px;
+    }
+    
+    .model-btn {
+        width: 100%;
+        padding: 1.2rem 2rem;
+    }
+
+    .nav-container {
+        gap: 1rem;
+    }
+
+    .nav-links {
+        gap: 1rem;
+    }
+
+}
+</style>
+</head>
+<body>
+    <nav class="navbar">
+        <img class="logo" 
+             src="static/images/logotransparent.png" 
+             alt="ClothMe! logo featuring a pink circle with white hanger icon and stylized text"
+             width="150"
+             height="50">
+        <div class="nav-container">
+            <div class="nav-links">
+                <a href="{{ url_for('landingpage') }}">Home</a>
+                <a href="#about">About Us</a>
+                <a href="#services">Our Services</a>
+                <a href="#demo">Demo</a>
+                <a href="#subscribe">Subscribe</a>
+            </div>
+            
+        </div>
+    </nav>
+
+    <main class="model-options">
+        <h1 class="title">Choose Your Experience</h1>
+        <div class="buttons-container">
+            <a href="{{ url_for('trainingv2') }}" class="model-btn train-btn">Train Model</a>
+            <a href="{{ url_for('try_on') }}" class="model-btn try-btn">Try Model</a>
+        </div>
+    </main>
+
+    <script>
+       
+    </script>
+</body>
+</html>

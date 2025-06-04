@@ -1,0 +1,212 @@
+<html><head><base href="/" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login | Virtual Try-On</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+:root {
+    --primary-color: #FFECE5;
+    --text-color: #4A4A4A;
+    --accent-color: #FF69B4;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--primary-color);
+    background-image: linear-gradient(135deg, #FFECE5 0%, #FFE2D9 100%);
+    padding: 2rem;
+}
+
+.login-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(255, 105, 180, 0.15);
+    overflow: hidden;
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    min-height: 600px;
+}
+
+.login-image {
+    flex: 1;
+    background-image: url('reza-delkhosh-iRAOJYtPHZE-unsplash.webp');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.login-image::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 105, 180, 0.3), rgba(255, 236, 229, 0.3));
+}
+
+.login-form {
+    flex: 1;
+    padding: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.logo {
+    width: 150px;
+    margin-bottom: 2rem;
+}
+
+.login-form h2 {
+    color: var(--text-color);
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    font-weight: 700;
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+    border-color: var(--accent-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.1);
+}
+
+.forgot-password {
+    text-align: right;
+    margin-bottom: 1.5rem;
+}
+
+.forgot-password a {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.forgot-password a:hover {
+    color: #ff4da6;
+}
+
+.login-btn {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 1.5rem;
+}
+
+.login-btn:hover {
+    background-color: #ff4da6;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+}
+
+.signup-link {
+    text-align: center;
+    color: var(--text-color);
+}
+
+.signup-link a {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.signup-link a:hover {
+    color: #ff4da6;
+}
+
+@media (max-width: 768px) {
+    .login-container {
+        flex-direction: column;
+    }
+    
+    .login-image {
+        height: 200px;
+    }
+    
+    .login-form {
+        padding: 2rem;
+    }
+}
+</style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-image"></div>
+        <div class="login-form">
+            <img class="logo" 
+                 src="logotransparent.png" 
+                 alt="ClothMe! logo featuring a pink circle with white hanger icon and stylized text"
+                 width="150"
+                 height="50">
+            <h2>Welcome Back</h2>
+            <form id="loginForm">
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required placeholder="Enter your email">
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" required placeholder="Enter your password">
+                </div>
+                <div class="forgot-password">
+                    <a href="https://clothme.com/reset-password">Forgot Password?</a>
+                </div>
+                <button type="submit" class="login-btn">Log In</button>
+                <p class="signup-link">
+                    Don't have an account? <a href="https://clothme.com/signup">Sign Up</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Here you would typically make an API call to your backend
+            console.log('Login attempt:', { email, password });
+            alert('Login functionality coming soon!');
+        });
+    </script>
+</body>
+</html>

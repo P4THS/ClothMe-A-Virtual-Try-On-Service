@@ -1,0 +1,253 @@
+<html><head><base href="/" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register | Virtual Try-On</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+:root {
+    --primary-color: #FFECE5;
+    --text-color: #4A4A4A;
+    --accent-color: #FF69B4;
+}
+
+body {
+    min-height: 100vh;
+    background-color: var(--primary-color);
+    background-image: linear-gradient(135deg, #FFECE5 0%, #FFE2D9 100%);
+    padding: 2rem;
+}
+
+.register-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(255, 105, 180, 0.15);
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.logo {
+    width: 150px;
+    height: auto;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.form-section {
+    padding: 1rem;
+}
+
+.form-section h3 {
+    color: var(--text-color);
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+    border-color: var(--accent-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.1);
+}
+
+.register-btn {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    float: right;
+    margin-top: 1rem;
+}
+
+.register-btn:hover {
+    background-color: #ff4da6;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+}
+
+.wave-decoration {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 150px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23FF69B4' fill-opacity='0.2' d='M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,128C672,128,768,160,864,176C960,192,1056,192,1152,170.7C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E") no-repeat bottom;
+    background-size: cover;
+    pointer-events: none;
+}
+
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .register-container {
+        padding: 1.5rem;
+    }
+}
+</style>
+</head>
+<body>
+    <div class="register-container">
+        <div class="logo-container">
+            <img class="logo" 
+                 src="logotransparent.png" 
+                 alt="ClothMe! logo featuring a pink circle with white hanger icon and stylized text"
+                 width="150"
+                 height="50">
+        </div>
+        <form id="registerForm">
+            <div class="form-grid">
+                <div class="form-section">
+                    <h3>Company Information</h3>
+                    <div class="input-group">
+                        <label for="companyName">Company Name</label>
+                        <input type="text" id="companyName" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="brandName">Brand Name</label>
+                        <input type="text" id="brandName" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="website">Website</label>
+                        <input type="url" id="website" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="contactPerson">Contact Person Name</label>
+                        <input type="text" id="contactPerson" required>
+                    </div>
+                </div>
+                <div class="form-section">
+                    <h3>Account Details</h3>
+                    <div class="input-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input type="password" id="confirmPassword" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="cardNumber">Credit Card Number</label>
+                        <input type="text" id="cardNumber" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="expiryDate">Expiry Date</label>
+                        <input type="text" id="expiryDate" placeholder="MM/YY" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="cvv">CVV</label>
+                        <input type="text" id="cvv" required>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="register-btn">Register!</button>
+        </form>
+    </div>
+    <div class="wave-decoration"></div>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Gather form data
+            const formData = {
+                companyName: document.getElementById('companyName').value,
+                brandName: document.getElementById('brandName').value,
+                website: document.getElementById('website').value,
+                phone: document.getElementById('phone').value,
+                contactPerson: document.getElementById('contactPerson').value,
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value,
+                confirmPassword: document.getElementById('confirmPassword').value,
+                cardNumber: document.getElementById('cardNumber').value,
+                expiryDate: document.getElementById('expiryDate').value,
+                cvv: document.getElementById('cvv').value
+            };
+
+            // Validate passwords match
+            if (formData.password !== formData.confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+
+            // Here you would typically make an API call to your backend
+            console.log('Registration data:', formData);
+            alert('Registration functionality coming soon!');
+        });
+
+        // Simple credit card input formatting
+        document.getElementById('cardNumber').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            value = value.replace(/(\d{4})/g, '$1 ').trim();
+            e.target.value = value;
+        });
+
+        // Expiry date formatting
+        document.getElementById('expiryDate').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+                value = value.slice(0,2) + '/' + value.slice(2,4);
+            }
+            e.target.value = value;
+        });
+
+        // CVV validation
+        document.getElementById('cvv').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            e.target.value = value.slice(0,3);
+        });
+    </script>
+</body>
+</html>

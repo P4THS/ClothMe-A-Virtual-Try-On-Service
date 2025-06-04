@@ -1,0 +1,368 @@
+<html><head><base href="/" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Virtual Try-On Experience | ClothMe!</title>
+<style>
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+}
+.login-btn {
+    padding: 0.8rem 2rem;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.login-btn:hover {
+    transform: scale(1.05);
+    background-color: #ff4da6;
+    box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+}
+.nav-links a:hover {
+    color: var(--accent-color);
+    transform: translateY(-2px);
+}
+.nav-container {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+}
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 4rem;
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 20px rgba(255, 105, 180, 0.1);
+    margin-bottom: 6rem;
+}
+.training-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+:root {
+    --primary-color: #FFECE5;
+    --text-color: #4A4A4A;
+    --accent-color: #FF69B4;
+}
+
+body {
+    min-height: 100vh;
+    background-color: var(--primary-color);
+    background-image: linear-gradient(135deg, #FFECE5 0%, #FFE2D9 100%);
+    
+}
+
+.tryon-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(255, 105, 180, 0.15);
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem;
+    margin-bottom: 6rem;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.logo {
+    width: 150px;
+    height: auto;
+}
+
+.clothing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.clothing-item {
+    background: white;
+    border-radius: 15px;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.clothing-item:hover {
+    transform: translateY(-5px);
+}
+
+.clothing-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+.upload-section {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    margin: 2rem 0;
+    text-align: center;
+}
+
+.dropzone {
+    border: 2px dashed var(--accent-color);
+    border-radius: 10px;
+    padding: 3rem;
+    margin: 2rem 0;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.dropzone:hover {
+    background: #fafafa;
+}
+
+.preview-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.preview-box {
+    background: #fafafa;
+    border-radius: 15px;
+    padding: 2rem;
+    text-align: center;
+    min-height: 300px;
+}
+
+.try-on-btn {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    max-width: 300px;
+    margin: 2rem auto;
+    display: block;
+}
+
+.try-on-btn:hover {
+    background-color: #ff4da6;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+}
+
+.price {
+    color: var(--accent-color);
+    font-weight: bold;
+    margin-top: 0.5rem;
+}
+
+.start-training-btn {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    margin-top: 1rem;
+}
+
+.start-training-btn:hover {
+    background-color: #ff4da6;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+}
+
+.loading-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loading-modal-content {
+            text-align: center;
+            color: white;
+        }
+        .selected {
+            border: 2px solid var(--accent-color);
+        }
+
+@media (max-width: 768px) {
+    .preview-section {
+        grid-template-columns: 1fr;
+    }
+    
+    .tryon-container {
+        padding: 1.5rem;
+    }
+}
+
+@keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+</style>
+</head>
+<body>
+    <nav class="navbar">
+        <img class="logo" 
+             src="static/images/logotransparent.png" 
+             alt="ClothMe! logo featuring a pink circle with white hanger icon and stylized text"
+             width="150"
+             height="50">
+        <div class="nav-container">
+            <div class="nav-links">
+                <a href="{{ url_for('landingpage') }}">Home</a>
+                <a href="{{ url_for('try_on') }}">Try Out!</a>
+                <a href="#about">About Us</a>
+                <a href="#services">Our Services</a>
+                <a href="#demo">Demo</a>
+                <a href="#subscribe">Subscribe</a>
+            </div>
+            
+        </div>
+    </nav>
+    <div class="tryon-container">
+        <div class="logo-container">
+            <img class="logo" 
+                 src="static/images/logotransparent.png" 
+                 alt="ClothMe! logo featuring a pink circle with white hanger icon and stylized text"
+                 width="150"
+                 height="50">
+        </div>
+        <div class="training-header">
+        <h1>Virtual Try-On Experience</h1>
+        <p>Upload your photo and select a clothing item to try on</p></div>
+
+        <form id="tryonForm" action="/generate" method="POST" enctype="multipart/form-data">
+            <div class="upload-section">
+                <div class="dropzone" id="dropzone">
+                    <p>Click to select a photo</p>
+                    <input type="file" id="userPhotos" name="userPhoto" accept="image/*" style="display: none">
+                </div>
+            </div>
+
+            <h3>Available Clothing Items</h3>
+            <div id="clothingGrid" class="clothing-grid">
+                {% for cloth in clothes %}
+                <div class="clothing-item" data-cloth-name="{{ cloth }}">
+                    <img src="{{ url_for('uploaded_file', filename=cloth) }}" alt="{{ cloth }}">
+                    <p>{{ cloth.split('.')[0].replace('_', ' ') }}</p>
+                </div>
+                {% endfor %}
+            </div>
+
+            <input type="hidden" id="selectedCloth" name="selectedCloth">
+            <button class="try-on-btn" type="submit">Generate Try-On</button>
+        </form>
+
+        <div class="preview-section">
+            <div class="preview-box">
+                <h3>Your Photo</h3>
+                <div id="userPhotoPreview"><img id="userPhoto" src="{{ url_for('uploaded_filev3', filename=user_image_path) }}" style="height: 512px;" alt="Your Photo">
+                    </div>
+            </div>
+            <div class="preview-box">
+                <h3>Try-On Result</h3>
+                <div id="resultPreview"><img id="resultPhoto" src="{{ url_for('uploaded_filev2', filename=result_image_path) }}" style="height: 512px;" alt="Try-On Result"></div>
+            </div>
+        </div>
+       
+    </div>
+    
+    <div id="loadingModal" class="loading-modal">
+        <div class="loading-modal-content">
+            <p>Processing your upload, please wait...</p>
+        </div>
+    </div>
+    <script>
+ const dropzone = document.getElementById('dropzone');
+        const userPhotos = document.getElementById('userPhotos');
+        const clothingItems = document.querySelectorAll('.clothing-item');
+        const selectedClothInput = document.getElementById('selectedCloth');
+
+        let selectedItem;
+
+        dropzone.addEventListener('click', () => userPhotos.click());
+
+        clothingItems.forEach(item => {
+            item.addEventListener('click', () => {
+                if (selectedItem) {
+                    selectedItem.classList.remove('selected');
+                }
+                item.classList.add('selected');
+                selectedItem = item;
+                selectedClothInput.value = item.getAttribute('data-cloth-name');
+            });
+        });
+
+        document.getElementById('tryonForm').addEventListener('submit', () => {
+            debugger;
+            document.getElementById('loadingModal').style.display = 'flex';
+        });
+    
+        const userPhoto = document.getElementById('userPhoto');
+    const resultPhoto = document.getElementById('resultPhoto');
+    
+    if (userPhoto.getAttribute('src') == "/uploads/test/image") {
+        userPhoto.style.display = 'none';
+    }
+    if (resultPhoto.getAttribute('src') == "/uploads/test/output") {
+        resultPhoto.style.display = 'none';
+    }
+       
+    </script>
+</body>
+</html>

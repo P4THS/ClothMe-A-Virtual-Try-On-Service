@@ -1,0 +1,291 @@
+<html><head><base href="/" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Virtual Try-On | Experience Fashion Differently</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+:root {
+    --primary-color: #FFECE5;  /* Updated to match image background */
+    --text-color: #4A4A4A;
+    --accent-color: #FF69B4;
+}
+
+body {
+    background-color: var(--primary-color);
+    background-image: linear-gradient(135deg, #FFECE5 0%, #FFE2D9 100%); /* Added subtle gradient */
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 4rem;
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 20px rgba(255, 105, 180, 0.1);
+}
+
+.logo {
+    height: 50px;
+    width: auto;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+}
+
+.nav-links a:hover {
+    color: var(--accent-color);
+    transform: translateY(-2px);
+}
+
+.login-btn {
+    padding: 0.8rem 2rem;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.login-btn:hover {
+    transform: scale(1.05);
+    background-color: #ff4da6;
+    box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+}
+
+.hero-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6rem 4rem;
+    gap: 4rem;
+    min-height: calc(100vh - 80px);
+    position: relative;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at top right, rgba(255, 236, 229, 0.8), transparent);
+    pointer-events: none;
+}
+
+.hero-content {
+    flex: 1;
+    max-width: 600px;
+    position: relative;
+    z-index: 1;
+}
+
+.hero-content h1 {
+    font-size: 4.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+    line-height: 1.1;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2.5rem;
+    color: #666;
+    line-height: 1.8;
+    font-weight: 300;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.cta-btn {
+    padding: 1.2rem 3rem;
+    border: none;
+    border-radius: 30px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+.primary-btn {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.primary-btn:hover {
+    background-color: #ff4da6;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 20px rgba(255, 105, 180, 0.4);
+}
+
+.secondary-btn {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: var(--accent-color);
+    border: 2px solid var(--accent-color);
+}
+
+.secondary-btn:hover {
+    background-color: var(--accent-color);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 20px rgba(255, 105, 180, 0.4);
+}
+
+.hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+}
+
+.hero-model {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 30px;
+    box-shadow: 0 20px 40px rgba(255, 105, 180, 0.2);
+}
+
+@keyframes float {
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(1deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
+}
+
+.floating {
+    animation: float 6s ease-in-out infinite;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+@media (max-width: 1024px) {
+    .hero-section {
+        flex-direction: column;
+        text-align: center;
+        padding: 4rem 2rem;
+    }
+    
+    .cta-buttons {
+        justify-content: center;
+    }
+    
+    .hero-content h1 {
+        font-size: 3rem;
+    }
+
+    .nav-container {
+        gap: 1rem;
+    }
+
+    .navbar {
+        padding: 1rem;
+    }
+
+    .nav-links {
+        gap: 1rem;
+    }
+}
+</style>
+</head>
+<body>
+    <nav class="navbar">
+        <img class="logo" 
+             src="static/images/logotransparent.png" 
+             alt="ClothMe! logo featuring a pink circle with white hanger icon and stylized text"
+             width="150"
+             height="50">
+        <div class="nav-container">
+            <div class="nav-links">
+                <a href="#about">About Us</a>
+                <a href="#services">Our Services</a>
+                <a href="#demo">Demo</a>
+                <a href="#subscribe">Subscribe</a>
+            </div>
+            <button class="login-btn">Login</button>
+        </div>
+    </nav>
+
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>Virtual Try-On Experience</h1>
+            <p>Transform your online shopping experience with our AI-powered virtual fitting room. Try clothes on your digital twin, visualize perfect fits, and shop with confidence. Train the system with your own wardrobe for personalized recommendations.</p>
+            <div class="cta-buttons">
+                <a href="{{ url_for('signup') }}" class="cta-btn primary-btn">Subscribe</a>
+                <button class="cta-btn secondary-btn">Learn More</button>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img class="hero-model floating" 
+                 src="static/images/good.webp" 
+                 alt="Elegant woman in white blazer and black quilted bag with sophisticated style"
+                 width="600"
+                 height="800">
+        </div>
+    </section>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        document.querySelector('.login-btn').addEventListener('click', function() {
+            alert('Login functionality coming soon!');
+        });
+
+        
+
+        document.querySelector('.secondary-btn').addEventListener('click', function() {
+            document.querySelector('#about').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>
